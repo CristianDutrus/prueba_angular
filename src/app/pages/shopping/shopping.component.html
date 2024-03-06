@@ -1,0 +1,122 @@
+<div class="row m-5">
+  <div class="col-6 mb-3"><h4>Products List</h4></div>
+  <div class="col-6 text-end">
+    <button class="btn btn-danger btn-block" (click)="logout()">Logout</button>
+  </div>
+  <div class="col-6 mb-4">
+    <div class="card p-3">
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-6 col-form-label">
+              Category:
+            </label>
+            <div class="col-sm-6">
+              <select class="form-select" (change)="changeCategory($event)">
+                <option value="All">All</option>
+                <option value="men's clothing">men's clothing</option>
+                <option value="jewelery">jewelery</option>
+                <option value="women's clothing">women's clothing</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-6 col-form-label"
+              >Limit:</label
+            >
+            <div class="col-sm-6">
+              <select class="form-select" (change)="changeTableSize($event)">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20" selected="selected">20</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12">
+    <table mat-table [dataSource]="data" class="mat-elevation-z8">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID.</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Title</th>
+        <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef>category</th>
+        <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef>Price</th>
+        <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            class="btn btn-success btn-block"
+            (click)="openModal(product, element)"
+          >
+            open
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>
+
+<!-- Modal -->
+<ng-template #product let-modal>
+  <div class="modal-header">
+    <div class="row">
+      <div class="col-10">
+        <h6 class="modal-title">{{ selectedItem.title }}</h6>
+      </div>
+      <div class="col-2 text-end">
+        <button
+          type="button"
+          class="btn btn-success"
+          aria-label="Close"
+          (click)="modal.dismiss()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col">
+        <img
+          src="{{ selectedItem.image }}"
+          class="img-fluid"
+          alt="Product Image"
+          style="height: 300px"
+        />
+      </div>
+      <div class="col-12 text-center mt-3">
+        {{ selectedItem.category }}
+      </div>
+
+      <div class="col-12 text-center mt-3">
+        {{ selectedItem.description }}
+      </div>
+      <div class="col-6 mt-4">Price:</div>
+      <div class="col-6 text-end mt-4">${{ selectedItem.price }}</div>
+    </div>
+  </div>
+</ng-template>

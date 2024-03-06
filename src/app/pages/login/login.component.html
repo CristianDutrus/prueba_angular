@@ -1,0 +1,42 @@
+<div class="container text-center mt-5">
+  <h5 class="mb-4">Login Form</h5>
+  <p class="mb-4">Angular Demo</p>
+
+  <div class="card p-4">
+    <div class="card-body">
+      <!-- Avatar -->
+      <img
+        src="../../../assets/img/avatar.png"
+        class="rounded-circle mb-3"
+        style="width: 230px; border: 1px solid #aaa;"
+        alt="Avatar"
+      />
+
+      <!-- Login Form -->
+      <form [formGroup]="loginForm">
+        <!-- Email input -->
+        <div class="form-outline mb-4 text-start">
+          <input type="email" id="email" formControlName="email" class="form-control" placeholder="Email"/>
+          <label for="email" class="text-danger" *ngIf="errors && loginForm.get('email')!.invalid">Invalid email format.</label>
+        </div>
+
+        <!-- Password input -->
+        <div class="form-outline mb-4 text-start">
+          <input type="password" id="password" formControlName="password" class="form-control" placeholder="Password"/>
+          <label for="password" class="text-danger" *ngIf="errors && loginForm.get('password')!.invalid">Invalid password.</label>
+        </div>
+
+        <!-- Login failure label -->
+        <label class="text-danger" *ngIf="loginFailure">Username or password invalid.</label>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-success btn-block mb-4 w-100" (click)="login()">
+          Sign in
+        </button>
+
+      </form>
+      <!-- Login demo details -->
+      user: <strong>user&#64;demo.com</strong> pass: <strong>123456</strong>
+    </div>
+  </div>
+</div>
